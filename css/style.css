@@ -1,0 +1,64 @@
+body {
+    /* Typographie Mécane (Rockwell est le standard classique, suivi d'alternatives) */
+    font-family: "Times New Roman", Times, Georgia, serif;
+    margin: 0;
+    padding: 5px;
+    background-color: #9f9f9f; /* Fond gris neutre */
+    color: #000000;
+}
+
+.projets-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.projet {
+    max-width: 100%;
+}
+
+.main-image {
+    max-height: 600px;
+    width: auto;
+    cursor: pointer;
+    display: block;
+}
+
+.details {
+    display: none;
+    margin-top: 10px;
+    width: 100%; 
+}
+
+.details h2, 
+.details p {
+    max-width: 800px;
+}
+
+.details.visible {
+    display: block; 
+}
+
+/* --- LA GALERIE --- */
+.galerie-ligne {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.galerie-ligne img {
+    width: auto;
+    height: auto; 
+    max-width: 450px; 
+    max-height: 90vh; 
+}
+
+.galerie-ligne iframe {
+    width: 450px; 
+    height: 253px; 
+    max-width: 100%;
+}
