@@ -1,43 +1,96 @@
 body {
-    /* Typographie Mécane (Rockwell est le standard classique, suivi d'alternatives) */
     font-family: "Times New Roman", Times, Georgia, serif;
-    margin: 0;
-    padding: 5px;
-    background-color: #9f9f9f; /* Fond gris neutre */
+    margin: 0px; 
+    padding: 0; 
+    background-color: #9f9f9f; 
     color: #000000;
+    overflow-x: hidden; 
+    /* J'ai retiré le curseur ici pour tout gérer à la fin */
 }
 
+/* --- LE BOUTON FIXE AU CENTRE --- */
+.center-button {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 1000; 
+    font-size: 1.2rem;
+    color: hsl(0, 0%, 100%); 
+    text-decoration: none;
+    /* J'ai retiré le curseur ici aussi */
+}
+
+/* --- LA GRILLE PRINCIPALE --- */
 .projets-grid {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 20px;
-}
-
-.projet {
-    max-width: 100%;
-}
-
-.main-image {
-    max-height: 600px;
-    width: auto;
-    cursor: pointer;
-    display: block;
-}
-
-.details {
-    display: none;
-    margin-top: 10px;
+    justify-content: flex-start; 
+    gap: 0px; 
     width: 100%; 
 }
 
-.details h2, 
-.details p {
-    max-width: 800px;
+.projet {
+    display: flex;
+    flex-direction: column;
+    position: relative; 
+    z-index: 1; 
+}
+
+.projet.actif {
+    z-index: 50; 
+}
+
+.main-image {
+    width: 100%; 
+    height: auto;
+    object-fit: contain;
+    display: block; 
+    /* J'ai retiré le curseur ici aussi */
+}
+
+/* --- LA PAGE WORK IN PROGRESS --- */
+.wip-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+}
+
+.wip-container h1 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+/* --- LES DÉTAILS SOUS L'IMAGE --- */
+.details {
+    display: none;
+    margin-top: 10px;
+    margin-bottom: 40px; 
+    width: 0; 
+    min-width: 100%;
+    overflow: visible; 
 }
 
 .details.visible {
     display: block; 
+}
+
+.details h2, 
+.details p {
+    width: 100%; 
+    max-width: 600px; 
+    margin-top: 0;
+    margin-bottom: 8px;
+    word-wrap: break-word; 
+}
+
+/* --- COULEUR DU TEXTE QUAND LE PROJET EST OUVERT --- */
+.projet.actif .details h2,
+.projet.actif .details p {
+    color: hsl(0, 0%, 100%); /* Remplace ce code par la couleur de ton choix */
 }
 
 /* --- LA GALERIE --- */
@@ -45,20 +98,142 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 0;
+    gap: 0; 
     margin-top: 20px;
-    width: 100%;
+    width: 100vw; 
+    margin-left: calc(-1 * var(--offset-left, 0px));
+}
+
+.galerie-spacer {
+    width: var(--offset-left, 0px);
+    height: 1px;
+    flex-shrink: 0;
 }
 
 .galerie-ligne img {
-    width: auto;
-    height: auto; 
     max-width: 450px; 
     max-height: 90vh; 
+    width: auto;
+    height: auto;
+    display: block;
 }
 
 .galerie-ligne iframe {
     width: 450px; 
     height: 253px; 
     max-width: 100%;
+}
+
+/* --- CURSEUR CUSTOM FORCÉ PARTOUT (LE BLINDAGE) --- */
+
+/* 1. On cible absolument tout, y compris la racine (html) */
+html, body, * {
+    cursor: url('../assets/images/curseur.svg') 16 16, auto !important;
+}
+
+/* 2. On maintient la main (pointer) sur les liens et images, MÊME pendant le clic (:active) */
+a, 
+.center-button, 
+.main-image,
+a:active,
+.center-button:active,
+.main-image:active {
+    cursor: url('../assets/images/curseur.svg') 16 16, pointer !important;
+}
+
+/* =========================================
+   PAGE INDEX (wip.html)
+========================================= */
+
+.page-index {
+    padding: 0px 0px; 
+}
+
+.index-grid {
+    display: grid;
+    grid-template-columns: 200px 200px 1fr 250px; 
+    gap: 20px;
+    padding: 10px 0;
+    align-items: baseline;
+}
+
+/* --- LE HEADER AFFINÉ --- */
+.index-header {
+    position: sticky;
+    top: 0;
+    background-color: #9f9f9f;
+    font-weight: bold;
+    z-index: 100;
+    border-bottom: 1px solid #000; /* Épaisseur du filet réduite à 1px */
+    padding-top: 8px; /* Hauteur réduite */
+    padding-bottom: 8px; /* Hauteur réduite */
+}
+
+.index-item {
+    border-bottom: 1px solid #000; /* Épaisseur du filet réduite à 1px */
+}
+
+/* Le texte passe en BLANC au survol */
+.index-item:hover {
+    color: hsl(0, 0%, 100%); 
+}
+
+#hover-image {
+    position: fixed;
+    width: 250px; 
+    height: auto;
+    pointer-events: none; 
+    z-index: 9999;
+    display: none;
+}
+
+/* --- LE PROJET ÉTENDU --- */
+.index-details {
+    display: none;
+    padding: 20px 0 30px 0; 
+    border-bottom: 1px solid #000; /* Filet de fermeture réduit à 1px */
+    max-width: 100%; /* S'assure que la boîte ne dépasse pas l'écran */
+}
+
+.index-details.visible {
+    display: flex;
+    flex-wrap: nowrap; 
+    align-items: flex-start;
+    gap: 40px; 
+}
+
+.index-desc {
+    width: 500px; 
+    flex-shrink: 0; 
+}
+
+/* --- LA GALERIE EN SCROLL HORIZONTAL --- */
+.index-galerie {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche tout retour à la ligne */
+    gap: 0; /* Images bord à bord */
+    overflow-x: auto; /* Active le défilement horizontal si la galerie est trop longue */
+    overflow-y: hidden;
+    padding-bottom: 15px; /* Laisse un peu de place en bas pour la barre de défilement */
+    
+    /* Cache visuellement la barre de scroll sur certains navigateurs pour un look plus "brut" (optionnel) */
+    scrollbar-width: thin;
+    scrollbar-color: #000 transparent;
+}
+
+/* Personnalisation de la barre de scroll horizontale (Chrome/Safari) */
+.index-galerie::-webkit-scrollbar {
+    height: 6px;
+}
+.index-galerie::-webkit-scrollbar-thumb {
+    background-color: #000;
+}
+
+.index-galerie img,
+.index-galerie iframe {
+    height: 180px; 
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0; /* Crucial : empêche les images de s'écraser pour rentrer dans l'écran */
+    display: block;
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - 9mm archive</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-index">
+    
+    <!-- Le bouton fixe centré, en rouge -->
+    <a href="index.html" class="center-button">9mm archive</a>
+
+    <div class="index-container">
+        <!-- Le Header fixe avec les 4 colonnes -->
+        <div class="index-header index-grid">
+            <div>Projet</div>
+            <div>Date</div>
+            <div>Description</div>
+            <div>Auteurs</div>
+        </div>
+        
+        <!-- La liste générée par le JS -->
+        <div id="index-list"></div>
+    </div>
+
+    <!-- L'image invisible qui suivra le curseur au survol -->
+    <img id="hover-image" src="" alt="">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+</html>
