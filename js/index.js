@@ -12,8 +12,8 @@ Papa.parse(urlCSVAntiCache, {
 function afficherIndex(projets) {
     const container = document.getElementById("index-list");
     const hoverImg = document.getElementById("hover-image");
+    if (!container) return;
 
-    // 1. Filtrer les lignes vides et trier par ordre alphabétique
     let projetsFiltres = projets.filter(projet => projet.titre);
     projetsFiltres.sort((a, b) => a.titre.localeCompare(b.titre));
 
@@ -21,7 +21,6 @@ function afficherIndex(projets) {
         const wrapper = document.createElement('div');
         wrapper.className = 'index-wrapper';
 
-        // 2. La ligne du tableau
         const row = document.createElement('div');
         row.className = 'index-item index-grid';
         row.innerHTML = `
@@ -31,7 +30,6 @@ function afficherIndex(projets) {
             <div>${projet.auteur || ""}</div>
         `;
 
-        // 3. La zone extensible (Description à gauche + Galerie à droite)
         let htmlGalerie = "";
         if (projet.galerie) {
             let liens = projet.galerie.split(',');
@@ -59,7 +57,6 @@ function afficherIndex(projets) {
             </div>
         `;
 
-        // 4. L'effet de survol : l'image suit la souris
         row.addEventListener('mouseenter', () => {
             if(projet.image) {
                 hoverImg.src = projet.image;
@@ -68,7 +65,6 @@ function afficherIndex(projets) {
         });
         
         row.addEventListener('mousemove', (e) => {
-            // On décale l'image de 15px pour qu'elle ne bloque pas le clic de la souris
             hoverImg.style.left = (e.clientX + 15) + 'px';
             hoverImg.style.top = (e.clientY + 15) + 'px';
         });
@@ -77,7 +73,6 @@ function afficherIndex(projets) {
             hoverImg.style.display = 'none';
         });
 
-        // 5. Le clic pour ouvrir/fermer
         row.addEventListener('click', () => {
             const isVisible = details.classList.toggle('visible');
             const iframes = details.querySelectorAll('iframe');

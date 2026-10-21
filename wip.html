@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index - 9mm archive</title>
+    <title>index</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="page-index">
     
-    <!-- Le bouton fixe centré, en rouge -->
-    <a href="index.html" class="center-button">9mm archive</a>
+    <!-- Logo aléatoire qui mène à About -->
+    <a href="about.html" class="logo-link">
+        <img id="random-logo" src="" alt="Logo">
+    </a>
+
+    <!-- Bouton central -->
+    <a href="index.html" class="center-button">9mm archives</a>
 
     <div class="index-container">
-        <!-- Le Header fixe avec les 4 colonnes -->
+        <!-- Header fixe de la liste -->
         <div class="index-header index-grid">
             <div>Projet</div>
             <div>Date</div>
@@ -20,15 +25,15 @@
             <div>Auteurs</div>
         </div>
         
-        <!-- La liste générée par le JS -->
+        <!-- Liste générée par le JS -->
         <div id="index-list"></div>
     </div>
 
-    <!-- L'image invisible qui suivra le curseur au survol -->
+    <!-- Image fantôme pour le survol -->
     <img id="hover-image" src="" alt="">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="js/index.js"></script>
-
+    <script src="js/logo.js"></script>
 </body>
 </html>

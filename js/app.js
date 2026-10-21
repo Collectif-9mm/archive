@@ -1,7 +1,4 @@
-// 1. COLLE TON LIEN CSV JUSTE ICI ENTRE LES GUILLEMETS
 const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSPZPvF3-usEB7lbAmjJrn4emncvyEOJ5Z05_aEkYI7lP8RR99soqd21Go_x2vcL3wEqQG59419s8qH/pub?output=csv";
-
-// ANTI-BUG : On ajoute l'heure en millisecondes à la fin de l'URL pour forcer le navigateur à toujours télécharger le fichier frais (évite les projets manquants au rechargement)
 const urlCSVAntiCache = urlCSV + "&t=" + new Date().getTime();
 
 Papa.parse(urlCSVAntiCache, {
@@ -14,25 +11,18 @@ Papa.parse(urlCSVAntiCache, {
 
 function afficherProjets(projets) {
     const container = document.getElementById("projets-container");
+    if (!container) return; // Sécurité si on n'est pas sur la bonne page
     container.innerHTML = ""; 
 
     let projetsFiltres = projets.filter(projet => projet.titre);
     projetsFiltres.sort(() => Math.random() - 0.5);
 
     let i = 0;
-    // On boucle sur tous les projets en les découpant par lignes
     while (i < projetsFiltres.length) {
-        
-        // MODIFICATION : On choisit au hasard entre 1 et 4 images pour cette ligne
         let nbImagesLigne = Math.floor(Math.random() * 4) + 1;
-        
-        // On extrait les projets correspondants à cette ligne
         let ligneProjets = projetsFiltres.slice(i, i + nbImagesLigne);
-        
-        // On calcule la largeur exacte pour remplir 100% de l'écran bord à bord
         let largeurPourcentage = 100 / ligneProjets.length;
 
-        // On affiche chaque projet de la ligne
         ligneProjets.forEach(projet => {
             let htmlGalerie = "";
             if (projet.galerie) {
@@ -43,7 +33,6 @@ function afficherProjets(projets) {
                         let videoId = "";
                         if (lien.includes("v=")) videoId = lien.split("v=")[1].substring(0, 11);
                         else if (lien.includes("youtu.be/")) videoId = lien.split("youtu.be/")[1].substring(0, 11);
-                        
                         htmlGalerie += `<iframe data-videoid="${videoId}" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                     } else if (lien !== "") {
                         htmlGalerie += `<img src="${lien}" alt="Galerie de ${projet.titre}">`;
@@ -53,7 +42,6 @@ function afficherProjets(projets) {
 
             const article = document.createElement('article');
             article.className = 'projet';
-            // On applique la largeur dynamique
             article.style.width = `${largeurPourcentage}%`;
 
             article.innerHTML = `
@@ -63,9 +51,7 @@ function afficherProjets(projets) {
                     <p class="annee">${projet.annee}</p>
                     <p class="intro">${projet.intro || ""}</p>
                     <p class="description">${projet.description || ""}</p>
-                    
-                    <p class="auteur">${projet.auteur || ""}</p>
-                    
+                    <p class="auteur"><strong>${projet.auteur || ""}</strong></p>
                     <div class="galerie-ligne">
                         <div class="galerie-spacer"></div>
                         ${htmlGalerie}
@@ -96,11 +82,8 @@ function afficherProjets(projets) {
                     }
                 });
             });
-
             container.appendChild(article);
         });
-
-        // On passe à la ligne suivante
         i += nbImagesLigne;
     }
 

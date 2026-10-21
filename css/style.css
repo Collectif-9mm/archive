@@ -1,3 +1,6 @@
+/* =========================================
+   1. BASE & COMMUN
+========================================= */
 body {
     font-family: "Times New Roman", Times, Georgia, serif;
     margin: 0px; 
@@ -5,10 +8,13 @@ body {
     background-color: #9f9f9f; 
     color: #000000;
     overflow-x: hidden; 
-    /* J'ai retiré le curseur ici pour tout gérer à la fin */
 }
 
-/* --- LE BOUTON FIXE AU CENTRE --- */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .center-button {
     position: fixed; 
     top: 50%;
@@ -18,10 +24,27 @@ body {
     font-size: 1.2rem;
     color: hsl(0, 0%, 100%); 
     text-decoration: none;
-    /* J'ai retiré le curseur ici aussi */
 }
 
-/* --- LA GRILLE PRINCIPALE --- */
+.logo-link {
+    position: fixed;
+    top: 20px;
+    left: 50%; /* Place l'élément au milieu de l'écran */
+    transform: translateX(-50%); /* Le recale parfaitement sur son propre centre */
+    z-index: 1000;
+    width: 60px; /* Taille de ton petit logo */
+    height: auto;
+    display: block;
+}
+
+.logo-link img {
+    width: 100%;
+    height: auto;
+}
+
+/* =========================================
+   2. PAGE D'ACCUEIL (index.html)
+========================================= */
 .projets-grid {
     display: flex;
     flex-wrap: wrap;
@@ -47,24 +70,8 @@ body {
     height: auto;
     object-fit: contain;
     display: block; 
-    /* J'ai retiré le curseur ici aussi */
 }
 
-/* --- LA PAGE WORK IN PROGRESS --- */
-.wip-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    margin: 0;
-}
-
-.wip-container h1 {
-    font-size: 2rem;
-    font-weight: normal;
-}
-
-/* --- LES DÉTAILS SOUS L'IMAGE --- */
 .details {
     display: none;
     margin-top: 10px;
@@ -87,13 +94,11 @@ body {
     word-wrap: break-word; 
 }
 
-/* --- COULEUR DU TEXTE QUAND LE PROJET EST OUVERT --- */
 .projet.actif .details h2,
 .projet.actif .details p {
-    color: hsl(0, 0%, 100%); /* Remplace ce code par la couleur de ton choix */
+    color: hsl(0, 0%, 100%); 
 }
 
-/* --- LA GALERIE --- */
 .galerie-ligne {
     display: flex;
     flex-wrap: wrap;
@@ -124,29 +129,11 @@ body {
     max-width: 100%;
 }
 
-/* --- CURSEUR CUSTOM FORCÉ PARTOUT (LE BLINDAGE) --- */
-
-/* 1. On cible absolument tout, y compris la racine (html) */
-html, body, * {
-    cursor: url('../assets/images/curseur.svg') 16 16, auto !important;
-}
-
-/* 2. On maintient la main (pointer) sur les liens et images, MÊME pendant le clic (:active) */
-a, 
-.center-button, 
-.main-image,
-a:active,
-.center-button:active,
-.main-image:active {
-    cursor: url('../assets/images/curseur.svg') 16 16, pointer !important;
-}
-
 /* =========================================
-   PAGE INDEX (wip.html)
+   3. PAGE INDEX DE LISTE (wip.html)
 ========================================= */
-
 .page-index {
-    padding: 0px 0px; 
+    padding: 0px; 
 }
 
 .index-grid {
@@ -157,23 +144,22 @@ a:active,
     align-items: baseline;
 }
 
-/* --- LE HEADER AFFINÉ --- */
 .index-header {
     position: sticky;
     top: 0;
     background-color: #9f9f9f;
     font-weight: bold;
     z-index: 100;
-    border-bottom: 1px solid #000; /* Épaisseur du filet réduite à 1px */
-    padding-top: 8px; /* Hauteur réduite */
-    padding-bottom: 8px; /* Hauteur réduite */
+    border-bottom: 1px solid #000;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .index-item {
-    border-bottom: 1px solid #000; /* Épaisseur du filet réduite à 1px */
+    border-bottom: 1px solid #000;
+    cursor: pointer;
 }
 
-/* Le texte passe en BLANC au survol */
 .index-item:hover {
     color: hsl(0, 0%, 100%); 
 }
@@ -187,12 +173,11 @@ a:active,
     display: none;
 }
 
-/* --- LE PROJET ÉTENDU --- */
 .index-details {
     display: none;
     padding: 20px 0 30px 0; 
-    border-bottom: 1px solid #000; /* Filet de fermeture réduit à 1px */
-    max-width: 100%; /* S'assure que la boîte ne dépasse pas l'écran */
+    border-bottom: 1px solid #000; 
+    max-width: 100%; 
 }
 
 .index-details.visible {
@@ -207,24 +192,21 @@ a:active,
     flex-shrink: 0; 
 }
 
-/* --- LA GALERIE EN SCROLL HORIZONTAL --- */
 .index-galerie {
     display: flex;
-    flex-wrap: nowrap; /* Empêche tout retour à la ligne */
-    gap: 0; /* Images bord à bord */
-    overflow-x: auto; /* Active le défilement horizontal si la galerie est trop longue */
+    flex-wrap: nowrap;
+    gap: 0; 
+    overflow-x: auto; 
     overflow-y: hidden;
-    padding-bottom: 15px; /* Laisse un peu de place en bas pour la barre de défilement */
-    
-    /* Cache visuellement la barre de scroll sur certains navigateurs pour un look plus "brut" (optionnel) */
+    padding-bottom: 15px; 
     scrollbar-width: thin;
     scrollbar-color: #000 transparent;
 }
 
-/* Personnalisation de la barre de scroll horizontale (Chrome/Safari) */
 .index-galerie::-webkit-scrollbar {
     height: 6px;
 }
+
 .index-galerie::-webkit-scrollbar-thumb {
     background-color: #000;
 }
@@ -234,6 +216,91 @@ a:active,
     height: 180px; 
     width: auto;
     object-fit: contain;
-    flex-shrink: 0; /* Crucial : empêche les images de s'écraser pour rentrer dans l'écran */
+    flex-shrink: 0; 
     display: block;
+}
+
+/* =========================================
+   4. PAGE ABOUT (about.html)
+========================================= */
+.page-about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 80px 20px; 
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+    position: relative;
+    z-index: 10;
+}
+
+.manifeste {
+    margin: 60px 0;
+    max-width: 800px; /* On remet ta largeur d'origine */
+}
+
+.manifeste p {
+    margin: 0 0 10px 0; /* On remet tes espacements d'origine */
+    color: hsl(0, 0%, 100%); /* Le texte en blanc */
+    font-size: 1rem; /* La même taille que tes descriptions de projet */
+}
+
+/* --- LES LIENS INSTAGRAM --- */
+.insta-link, .insta-links-bottom a {
+    color: hsl(0, 0%, 100%); /* Blanc */
+    text-decoration: none;
+    font-size: 1rem; /* Petit comme le texte */
+    font-weight: normal; /* Pas de gras */
+}
+
+.insta-link:hover, .insta-links-bottom a:hover {
+    color: #000000; /* Devient noir au survol */
+}
+
+.insta-links-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px; 
+    margin-top: 20px;
+}
+
+.image-fantome {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 200px; 
+    height: auto;
+    z-index: 500; 
+    transition: opacity 0s; 
+    filter: grayscale(100%);
+}
+
+.image-fantome:hover {
+    opacity: 0; 
+}
+
+/* =========================================
+   5. CURSEUR CUSTOM PARTOUT (BLINDAGE)
+========================================= */
+html, body, * {
+    cursor: url('../assets/images/curseur.svg') 16 16, auto !important;
+}
+
+a, 
+.center-button, 
+.main-image,
+.index-item,
+a:active,
+.center-button:active,
+.main-image:active,
+.index-item:active {
+    cursor: url('../assets/images/curseur.svg') 16 16, pointer !important;
 }

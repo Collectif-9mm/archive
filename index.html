@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9mm archive</title>
+    <title>9mm archives</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
 </head>
 <body>
 
-    <!-- Le bouton fixe centré, en rouge -->
+    <!-- Logo aléatoire qui mène à About -->
+    <a href="about.html" class="logo-link">
+        <img id="random-logo" src="" alt="Logo">
+    </a>
+
+    <!-- Bouton central -->
     <a href="wip.html" class="center-button">9mm archives</a>
 
-    <!-- Le conteneur des images, sans aucune marge -->
+    <!-- Conteneur de la grille générative -->
     <div id="projets-container" class="projets-grid"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="js/app.js"></script>
-
+    <script src="js/logo.js"></script>
 </body>
 </html>
