@@ -159,7 +159,7 @@ a {
 
 .index-grid {
     display: grid;
-    grid-template-columns: 200px 200px 1fr 250px; 
+    grid-template-columns: 250px 200px 1fr 250px; 
     gap: 20px;
     padding: 10px 0;
     align-items: baseline;
