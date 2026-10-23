@@ -12,6 +12,9 @@ Papa.parse(urlCSVAntiCache, {
 function afficherProjets(projets) {
     const container = document.getElementById("projets-container");
     if (!container) return; // Sécurité si on n'est pas sur la bonne page
+    
+    // On s'assure d'avoir la classe de base pour la gestion de l'opacité
+    container.classList.add('projets-grid'); 
     container.innerHTML = ""; 
 
     let projetsFiltres = projets.filter(projet => projet.titre);
@@ -44,17 +47,26 @@ function afficherProjets(projets) {
             article.className = 'projet';
             article.style.width = `${largeurPourcentage}%`;
 
+        // Injection HTML : La galerie est maintenant au-dessus du texte
             article.innerHTML = `
                 <img class="main-image" src="${projet.image}" alt="Projet ${projet.titre}">
                 <div class="details">
-                    <h2>${projet.titre}</h2>
-                    <p class="annee">${projet.annee}</p>
-                    <p class="intro">${projet.intro || ""}</p>
-                    <p class="description">${projet.description || ""}</p>
-                    <p class="auteur"><strong>${projet.auteur || ""}</strong></p>
                     <div class="galerie-ligne">
                         <div class="galerie-spacer"></div>
                         ${htmlGalerie}
+                    </div>
+                    <div class="project-info-grid">
+                        <div class="project-info-col">
+                            <h2>${projet.titre}</h2>
+                            <span>${projet.auteur || ""}</span>
+                            <span>${projet.annee}</span>
+                        </div>
+                        <div class="project-info-col">
+                            <p>${projet.intro || ""}</p>
+                        </div>
+                        <div class="project-info-col">
+                            <p>${projet.description || ""}</p>
+                        </div>
                     </div>
                 </div>
             `;
@@ -67,9 +79,13 @@ function afficherProjets(projets) {
                 const isVisible = boiteDetails.classList.toggle('visible');
                 article.classList.toggle('actif', isVisible); 
                 
+                // Déclencheur pour faire disparaître les autres projets
+                container.classList.toggle('project-open', isVisible);
+                
                 if (isVisible) {
                     const rect = article.getBoundingClientRect();
-                    galerieLigne.style.setProperty('--offset-left', `${rect.left}px`);
+                    // On applique l'offset au conteneur de détails complet (Grille texte + Galerie)
+                    boiteDetails.style.setProperty('--offset-left', `${rect.left}px`);
                 }
 
                 const iframes = boiteDetails.querySelectorAll('iframe');
@@ -90,9 +106,9 @@ function afficherProjets(projets) {
     window.addEventListener('resize', () => {
         document.querySelectorAll('.projet.actif').forEach(article => {
             const rect = article.getBoundingClientRect();
-            const galerieLigne = article.querySelector('.galerie-ligne');
-            if(galerieLigne) {
-                galerieLigne.style.setProperty('--offset-left', `${rect.left}px`);
+            const boiteDetails = article.querySelector('.details');
+            if(boiteDetails) {
+                boiteDetails.style.setProperty('--offset-left', `${rect.left}px`);
             }
         });
     });

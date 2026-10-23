@@ -29,10 +29,10 @@ a {
 .logo-link {
     position: fixed;
     top: 20px;
-    left: 50%; /* Place l'élément au milieu de l'écran */
-    transform: translateX(-50%); /* Le recale parfaitement sur son propre centre */
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
-    width: 60px; /* Taille de ton petit logo */
+    width: 60px;
     height: auto;
     display: block;
 }
@@ -41,6 +41,7 @@ a {
     width: 100%;
     height: auto;
 }
+
 
 /* =========================================
    2. PAGE D'ACCUEIL (index.html)
@@ -59,6 +60,12 @@ a {
     flex-direction: column;
     position: relative; 
     z-index: 1; 
+    /* La transition a été retirée car le display:none est instantané */
+}
+
+/* EFFET DE DISPARITION ET SUPPRESSION DU VIDE */
+.projets-grid.project-open .projet:not(.actif) {
+    display: none; /* Supprime physiquement l'espace pour empêcher de scroller dans le vide */
 }
 
 .projet.actif {
@@ -74,7 +81,7 @@ a {
 
 .details {
     display: none;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 40px; 
     width: 0; 
     min-width: 100%;
@@ -85,26 +92,12 @@ a {
     display: block; 
 }
 
-.details h2, 
-.details p {
-    width: 100%; 
-    max-width: 600px; 
-    margin-top: 0;
-    margin-bottom: 8px;
-    word-wrap: break-word; 
-}
-
-.projet.actif .details h2,
-.projet.actif .details p {
-    color: hsl(0, 0%, 100%); 
-}
-
+/* --- LA GALERIE D'IMAGES --- */
 .galerie-ligne {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 0; 
-    margin-top: 20px;
     width: 100vw; 
     margin-left: calc(-1 * var(--offset-left, 0px));
 }
@@ -128,6 +121,34 @@ a {
     height: 253px; 
     max-width: 100%;
 }
+
+/* --- LA GRILLE DE TEXTE EN 3 COLONNES --- */
+.project-info-grid {
+    display: grid;
+    /* Tu peux modifier ces valeurs pour changer la largeur de tes colonnes (ex: 20% 30% 50% ou 1fr 2fr 1fr) */
+    grid-template-columns: 200px 200px 1fr; 
+    gap: 40px;
+    margin-top: 40px; /* L'espace entre la galerie d'images et ton texte */
+    margin-bottom: 40px;
+    color: hsl(0, 0%, 100%);
+    width: 100vw; 
+    margin-left: calc(-1 * var(--offset-left, 0px)); 
+    padding: 0 20px; 
+    box-sizing: border-box;
+}
+
+.project-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.project-info-col h2,
+.project-info-col p {
+    margin: 0;
+    word-wrap: break-word;
+}
+
 
 /* =========================================
    3. PAGE INDEX DE LISTE (wip.html)
@@ -220,6 +241,7 @@ a {
     display: block;
 }
 
+
 /* =========================================
    4. PAGE ABOUT (about.html)
 ========================================= */
@@ -242,25 +264,24 @@ a {
 
 .manifeste {
     margin: 60px 0;
-    max-width: 800px; /* On remet ta largeur d'origine */
+    max-width: 800px; 
 }
 
 .manifeste p {
-    margin: 0 0 10px 0; /* On remet tes espacements d'origine */
-    color: hsl(0, 0%, 100%); /* Le texte en blanc */
-    font-size: 1rem; /* La même taille que tes descriptions de projet */
+    margin: 0 0 10px 0; 
+    color: hsl(0, 0%, 100%); 
+    font-size: 1rem; 
 }
 
-/* --- LES LIENS INSTAGRAM --- */
 .insta-link, .insta-links-bottom a {
-    color: hsl(0, 0%, 100%); /* Blanc */
+    color: hsl(0, 0%, 100%); 
     text-decoration: none;
-    font-size: 1rem; /* Petit comme le texte */
-    font-weight: normal; /* Pas de gras */
+    font-size: 1rem; 
+    font-weight: normal; 
 }
 
 .insta-link:hover, .insta-links-bottom a:hover {
-    color: #000000; /* Devient noir au survol */
+    color: #000000; 
 }
 
 .insta-links-bottom {
@@ -286,6 +307,7 @@ a {
 .image-fantome:hover {
     opacity: 0; 
 }
+
 
 /* =========================================
    5. CURSEUR CUSTOM PARTOUT (BLINDAGE)
